@@ -1,7 +1,63 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
+<html lang="en">
+    <head>
+        <title>Test</title>
+
+        <style>
+            iframe
+            {
+                border: none;
+            }
+        </style>
+
+       <!-- <script src="https://trimbleworld-framework.azurewebsites.net/trimbleworld.api.js"></script>-->
+    </head>
+
+  <body style="width: 100%;height: 100%;padding: 0px;margin: 0px;">
+
+    <!-- <iframe src="https://trimbleworld-framework.azurewebsites.net" style="position: absolute;" sandbox="allow-scripts allow-modals allow-forms allow-same-origin" width="100%" height="100%"></iframe></script>-->
+
+
+    <div style="position: absolute;width: 100%;height: 100%;" id="TrimbleConnectViewer"></div>
+
+    <script type="text/javascript" src="https://app21.connect.trimble.com/tc/static/gteam/viewer/embed.js"></script>
+    <script>
+
+        var ViewerNode = document.getElementById("TrimbleConnectViewer");
+        var options = { hideProperty: true };
+        var project = "EBsZlAW_-uk";
+        var object = "sFcdFrvmeTQ";
+        var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJpc3MiOiJodHRwczovL2lkLnRyaW1ibGUuY29tIiwiZXhwIjoxNjM3MDc3NTI0LCJuYmYiOjE2MzcwNzM5MjQsImlhdCI6MTYzNzA3MzkyNCwianRpIjoiMWJlNjFkMzU0MDkzNDQ2N2JiY2ZkNmQ0YTk4MTU1MjciLCJqd3RfdmVyIjoyLCJzdWIiOiJmMGNkZDNjNC1iZjZkLTRhMWMtODhiMS05OTZjZWE3NzM5YzEiLCJpZGVudGl0eV90eXBlIjoidXNlciIsImFtciI6WyJwYXNzd29yZCJdLCJhdXRoX3RpbWUiOjE2MzcwNzM4OTUsImF6cCI6ImVmNzg0MjdkLTIzNDktNGUzYy05YzZjLTcwY2QxMmIwNGExMCIsImF1ZCI6WyJlZjc4NDI3ZC0yMzQ5LTRlM2MtOWM2Yy03MGNkMTJiMDRhMTAiXSwic2NvcGUiOiJUcmltYmxlQ29ubmVjdFByb2plY3RtYW5hZ2VyIn0.TefGa2K4uD8vJdYAAHty4p7dquhEC47wgaIEZEaHBMBAZAAj63V43Yq7vgd3L9iSM2f_dIjzT3-RCr6WAgdZwsnDBBrNCROgxiblP6zWde-RWL8LO12mjWDxayaWcWHmOYGgy4imitYd6Ttsy_nKAqpP8lfxd4Y62xuXk_iL0jRdNonRrUz0o6l0cZgEWaWOfE-8G5FsrSx1J9UuRQ3qnKkq7vXVaagLINRCq2tAXKVXoPMKXEVcDj7k5VuLxVZTyRVHFukvS7ug6LAag0aiVf7mc6Hlnva_KKBa7WwYFTk72bwlnj4Cr84JtUVFNIwD6ZNdYc-oCbIQMo7FgCOR3Q";
+
+        var viewer_data = {
+            domNode: ViewerNode,
+            title: "Trimble Connect Embedded Viewer",
+            //height: 700,
+            //width: 700,
+            options: options,
+            gteamOrigin: encodeURIComponent("https://app21.connect.trimble.com"),
+            projId: project,
+            objects: object,
+            accessToken: token,
+            class: "embeddedViewFrame",
+            onInitialized: function() {
+                console.log("API ready");
+            }
+        };
+
+        var viewer = new EmbeddedViewer(viewer_data);
+
+        var selectionChanged = function(ids) {
+            viewer.getSourceID(ids,function(iids){ 
+                console.log(iids);
+            }); 
+
+            // Set selected part color to blue
+            viewer.setColor(ids,{r: 0.0, g: 0.0, b: 1.0, a: 1.00},false);
+        }
+
+        viewer.onSelectionChanged = selectionChanged;
+    </script>
+  
+
+</body></html>
