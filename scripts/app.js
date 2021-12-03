@@ -86,6 +86,39 @@ async function setObjectsByProp(e) {
   return doObjectsFilter(async () => API.viewer.setSelection(getPropSelector(), "set"));
 }
 
+async function doObjectsFilter(action) {
+  return doWorkRes("#objectsResult", "#objectsLoading", action);
+}
+
+async function doWorkRes(selResult, selLoading, action) {
+  return doWorkSafe(() => {
+	$(selResult).html("");
+	$(selLoading).show();
+  }, action, r => {
+	$(selLoading).hide();
+	$(selResult).html(r);
+  });
+}
+
+async function doWorkSafe(preAction, action, postAction) {
+  preAction();
+  let result;
+  try {
+	const actionRes = await action();
+	if (actionRes === false) {
+	  throw new Error("Operation failed: Unknown error");
+	} else if (actionRes === true || actionRes === "" || actionRes == null) {
+	  result = ok();
+	} else {
+	  result = actionRes;
+	}
+  }
+  catch (e) {
+	result = err(e);
+  }
+  postAction(result)
+}
+
 async function getObjectsByProp(e) {
   return getObjectsBy(async () => API.viewer.getObjects(getPropSelector()), e);
 }
