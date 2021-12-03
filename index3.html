@@ -1,0 +1,42 @@
+
+<html lang="en">
+
+<head>
+    <Title>TC - Calculate Angle</Title> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="tab-panel-topbar">
+        <h4>Test1</h4>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <button class="btn btn-primary btn-sm" onclick="OnPickedRefresh()">Measure Angle</button>
+            <input type="text" readonly class="form-control col" id="txtAngle" placeholder="Angle" />
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <label for="propName" class="col-md-auto col-form-label">Property Name: </label>
+			<input type="text" class="form-control" id="propNameFilter" placeholder="Enter property name"
+			  value="Default.ASSEMBLY_POS" onkeypress="getObjectsByProp(event)">
+        </div>
+    </div>
+	<div class="row">
+		<label for="propValue" class="col-md-auto col-form-label">Property Value: </label>
+		<div class="col">
+			<input type="text" class="form-control" id="propValueFilter" placeholder="Enter property value"
+				value="PS5" onkeypress="getObjectsByProp(event)">
+		</div>
+	</div>
+	<div class="row">
+		<button class="btn btn-info btn-sm col-md-auto" onclick="setObjectsByProp()">Set selection</button>
+	</div>
+</body>
+
+<script src="https://3d.connect.trimble.com/trimbleconnect.workspace.api.js"></script>
+<script src="./scripts/app.js"></script>
+
+</html>
