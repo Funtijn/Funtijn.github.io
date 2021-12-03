@@ -83,7 +83,10 @@ function ToDegree(angle) {
 }
 
 async function setObjectsByProp(e) {
-  return doObjectsFilter(async () => API.viewer.setSelection(getPropSelector(), "set"));
+	
+	var txtInfo = document.getElementById('txtInfo');
+	txtAngle.value = "test 1";
+	return doObjectsFilter(async () => API.viewer.setSelection(getPropSelector(), "set"));
 }
 
 async function doObjectsFilter(action) {
