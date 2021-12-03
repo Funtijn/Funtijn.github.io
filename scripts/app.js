@@ -82,6 +82,24 @@ function ToDegree(angle) {
     return angle * (180.0 / Math.PI);
 }
 
+async function setObjectsByProp(e) {
+  return doObjectsFilter(async () => API.viewer.setSelection(getPropSelector(), "set"));
+}
+
+async function getObjectsByProp(e) {
+  return getObjectsBy(async () => API.viewer.getObjects(getPropSelector()), e);
+}
+
+function getPropSelector() {
+  return {
+	parameter: {
+	  properties: {
+		[$("#propNameFilter").val()]: $("#propValueFilter").val()
+	  }
+	}
+  };
+}
+
 // My Vector class
 class vector {
     constructor(x, y, z) {
