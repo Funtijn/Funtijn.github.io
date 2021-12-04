@@ -97,7 +97,7 @@ async function setObjectsByProp() {
 	return doObjectsFilter(async () => API.viewer.setSelection(getPropSelector(), "set"));
 }
 
-function setObjectsByProp2() {
+async function setObjectsByProp2() {
     SetText("setObjectsByProp2");
     await API.viewer.setSelection(getPropSelector(), "set");
 }
