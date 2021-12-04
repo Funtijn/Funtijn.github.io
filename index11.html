@@ -1,0 +1,49 @@
+
+<html lang="en">
+
+<head>
+    <Title>Test10</Title> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div>
+        <h4>Test10</h4>
+    </div>
+
+    <div>
+        <button onclick="OnPickedRefresh()">Measure Angle</button>
+        <input type="text" readonly id="txtAngle" placeholder="Angle" />
+    </div>
+    <div>
+        <label for="propName">Property Name: </label>
+        <input type="text" id="propNameFilter" placeholder="Enter property name"
+                value="Default.ASSEMBLY_POS" onkeypress="getObjectsByProp(event)">
+    </div>
+    <div>
+        <label for="propValue">Property Value: </label>
+        <div>
+            <input type="text" id="propValueFilter" placeholder="Enter property value"
+                    value="PS5" onkeypress="getObjectsByProp(event)">
+        </div>
+    </div>
+    <div>
+        <button onclick="setObjectsByProp()">Set selection</button>
+    </div>
+    <div>
+        <input type="text" readonly id="txtInfo" placeholder="Info" />
+    </div>
+    <div>
+        <div id="objectsLoading">
+            <div role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div id="objectsResult"></div>
+    </div>
+</body>
+
+<script src="https://3d.connect.trimble.com/trimbleconnect.workspace.api.js"></script>
+<script src="./scripts/app11.js"></script>
+
+</html>
