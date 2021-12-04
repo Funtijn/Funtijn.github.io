@@ -129,8 +129,7 @@ async function doWorkSafe(preAction, action, postAction) {
       result = err(e);
       SetText(result);
   }
-    postAction(result)
-
+    postAction(result);
     SetText("doWorkSafe finished");
 }
 
