@@ -1,0 +1,59 @@
+
+<html lang="en">
+
+<head>
+    <Title>Test77</Title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script crossorigin src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script crossorigin src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script crossorigin
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+    <script crossorigin src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+</head>
+
+<body>
+    <div>
+        <h4>Test77</h4>
+    </div>
+
+    <div>
+        <button onclick="OnPickedRefresh()">Measure Angle</button>
+        <input type="text" readonly id="txtAngle" placeholder="Angle" />
+    </div>
+    <div>
+        <label for="propName">Property Name: </label>
+        <input type="text" id="propNameFilter" placeholder="Enter property name"
+               value="Default.MERKPREFIX" onkeypress="getObjectsByProp(event)">
+    </div>
+    <div>
+        <label for="propValue">Property Value: </label>
+        <div>
+            <input type="text" id="propValueFilter" placeholder="Enter property value"
+                   value="PS" onkeypress="getObjectsByProp(event)">
+        </div>
+    </div>
+    <div>
+        <button onclick="setObjectsByProp()">Set selection</button>
+        <button onclick="setObjectsByProp2()">Set selection2</button>
+    </div>
+    <div>
+        <input type="text" readonly id="txtInfo" placeholder="Info" />
+    </div>
+    <div>
+        <div id="objectsLoading">Loading...</div>
+        <div id="objectsResult">Result</div>
+    </div>
+    <div>
+        <button onclick="setText()">Set text</button>
+        <div id="testTextSet"></div>
+    </div>
+    <div>
+        <button onclick="addTextMarkups()">Add markups</button>
+        <div id="errorText"></div>
+    </div>
+</body>
+
+<script src="https://3d.connect.trimble.com/trimbleconnect.workspace.api.js"></script>
+<script src="./scripts/app77.js"></script>
+
+</html>
