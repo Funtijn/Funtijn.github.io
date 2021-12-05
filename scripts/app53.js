@@ -214,12 +214,18 @@ async function addTextMarkups() {
                 jsonArray = jsonArray.concat(psets);
                 SetText2(jsonArray);
                 var psetDefault = objproperties.properties.find(p => p.set === "Default");
-                psets = psets.concat(typeof psetDefault);
+                if (typeof psetDefault === "undefined") {
+                    jsonArray = jsonArray.concat("psetDefault for _Default_ was undefined");
+                }
+                psetDefault = objproperties.properties.find(p => p.set === "Default.COG_X");
+                if (typeof psetDefault === "undefined") {
+                    jsonArray = jsonArray.concat("psetDefault for _Default.COG_X_ was undefined");
+                }
                 jsonArray = jsonArray.concat("Default pset found");
                 SetText2(jsonArray);
-                var cogX = psetDefault.properties.find(p => p.name === "COG_X");
-                jsonArray = jsonArray.concat(cogX);
-                SetText2(jsonArray);
+                //var cogX = psetDefault.properties.find(p => p.name === "COG_X");
+                //jsonArray = jsonArray.concat(cogX);
+                //SetText2(jsonArray);
             //SetText2(jsonArray);
             //jsonArray.concat(",");
             //SetText2(jsonArray);
