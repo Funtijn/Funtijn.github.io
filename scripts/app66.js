@@ -170,7 +170,7 @@ function getPropSelector() {
 async function addTextMarkups() {
     try {
         SetText2("Start adding markups");
-        var jsonArray = "[";
+        let jsonArray = "[";
         SetText2(jsonArray);
         const propSelector = getPropSelector();
         await API.viewer.setSelection(propSelector, "set");
@@ -229,7 +229,7 @@ async function addTextMarkups() {
                 //psets = psets.concat(", set2: ");
                 //psets = psets.concat(objproperties.set);
                 //psets = psets.concat("isarray: ");
-                var propertyArray = objproperties.properties[0].properties
+                const propertyArray = objproperties.properties[0].properties
                 if (typeof propertyArray === "undefined") {
                     jsonArray = jsonArray.concat("objproperties.properties[0].properties was undefined");
                 }
