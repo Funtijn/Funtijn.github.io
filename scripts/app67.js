@@ -185,12 +185,12 @@ async function addTextMarkups() {
             for (const objproperties of objPropertiesArr) {
             //for (var objproperties of mobjects.objects) {
                 //objproperties type: ObjectProperties
-                for (const propertyset in objproperties.properties) {
+                for (const propertyset of objproperties.properties) {
                     jsonArray = jsonArray.concat("<br /> new set");
                     jsonArray = jsonArray.concat("<br /> propertyset.properties isarray: ");
                     jsonArray = jsonArray.concat(Array.isArray(propertyset.properties));
                     //jsonArray = jsonArray.concat(property.set);
-                    for (const property in propertyset.properties) {
+                    for (const property of propertyset.properties) {
                         jsonArray = jsonArray.concat("<br /> property: ");
                         jsonArray = jsonArray.concat(property.name);
                     }
