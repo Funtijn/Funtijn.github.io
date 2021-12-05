@@ -191,6 +191,7 @@ async function addTextMarkups() {
                     jsonArray = jsonArray.concat(Array.isArray(propertyset.properties));
                     //jsonArray = jsonArray.concat(property.set);
                     for (var property in propertyset.properties) {
+                        jsonArray = jsonArray.concat("<br /> property: ");
                         jsonArray = jsonArray.concat(property.name);
                     }
                 }
