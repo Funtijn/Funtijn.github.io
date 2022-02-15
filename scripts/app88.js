@@ -14,11 +14,19 @@ window.onload = async function () {
     });
 }
 
+async function fetchAsync(url)
+{
+    let response = await fetch(url);
+    let data = await response.json();
+    return data;
+}
+
 $(function () {
     $("#button").dxButton({
         text: "Click me!",
         onClick: function () {
             DevExpress.ui.notify("The button was clicked");
+            DevExpress.ui.notify(fetchAsync("http://time.jsontest.com"));
         },
         type: "success",
         stylingMode: "outlined"

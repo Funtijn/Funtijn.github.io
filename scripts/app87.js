@@ -14,7 +14,8 @@ window.onload = async function () {
     });
 }
 
-async function fetchAsync(url) {
+async function fetchAsync(url)
+{
     let response = await fetch(url);
     let data = await response.json();
     return data;
