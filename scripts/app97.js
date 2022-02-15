@@ -29,9 +29,11 @@ $(function () {
     $("#button2").dxButton({
         text: "Click me 2!",
         onClick: function () {
-            let text = "";
-            let response = $.getJSON('http://time.jsontest.com');
-            DevExpress.ui.notify(text);
+            fetch('http://time.jsontest.com')
+            .then(res => res.json())
+            .then((out) => {
+                    DevExpress.ui.notify(text);
+            }).catch(err => console.error(err));
         },
         type: "success",
         stylingMode: "outlined"
