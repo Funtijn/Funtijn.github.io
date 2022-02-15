@@ -50,8 +50,9 @@ function getTime() {
     $.ajax({
         url: "https://reqbin.com/echo/get/json",
         dataType: 'json',
+        async: false,
         success: function (data) {
-            time = data.succes;
+            time = data.success;
         }
     });
     $(timeText).html(time);
