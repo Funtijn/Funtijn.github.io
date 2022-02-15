@@ -29,10 +29,6 @@ $(function () {
     $("#button2").dxButton({
         text: "Click me 2!",
         onClick: function () {
-            let text = "";
-            await $.getJSON('http://time.jsontest.com', function (data) {
-                text = text.concat(data.date);
-            });
             const data = await $.getJSON('http://time.jsontest.com');
             DevExpress.ui.notify(data.date);
         },
