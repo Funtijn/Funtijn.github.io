@@ -1,0 +1,66 @@
+
+<html lang="en">
+
+    <head>
+        <Title>Test105</Title>
+
+        <!-- ... -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+        <!-- DevExtreme theme -->
+        <link rel="stylesheet" href="https://cdn3.devexpress.com/jslib/21.2.4/css/dx.light.css">
+
+        <!-- DevExtreme library -->
+        <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.4/js/dx.all.js"></script>
+        <!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.4/js/dx.web.js"></script> -->
+        <!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.4/js/dx.viz.js"></script> -->
+        <script crossorigin src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>
+    </head>
+
+    <body class="dx-viewport">
+        <div>
+            <h4>Test105</h4>
+        </div>
+        <div>
+            <label for="propName">Property Name: </label>
+            <input type="text" id="propNameFilter" placeholder="Enter property name"
+                   value="Default.MERKPREFIX" onkeypress="getObjectsByProp(event)">
+        </div>
+        <div>
+            <label for="propValue">Property Value: </label>
+            <div>
+                <input type="text" id="propValueFilter" placeholder="Enter property value"
+                       value="PS" onkeypress="getObjectsByProp(event)">
+            </div>
+        </div>
+        <div>
+            <button onclick="setObjectsByProp()">Set selection</button>
+            <button onclick="setObjectsByProp2()">Set selection2</button>
+        </div>
+        <div>
+            <input type="text" readonly id="txtInfo" placeholder="Info" />
+        </div>
+        <div>
+            <div id="objectsLoading">Loading...</div>
+            <div id="objectsResult">Result</div>
+        </div>
+        <div>
+            <button onclick="addTextMarkups()">Add markups</button>
+            <div id="errorText"></div>
+        </div>
+        <div>
+            <button onclick="setText()">Set text</button>
+            <div id="testTextSet"></div>
+        </div>
+        <div>
+            <button onclick="getTime()">Get time</button>
+            <div id="timeText"></div>
+        </div>
+        <!--<div id="button"></div>
+    <div id="button2"></div>-->
+    </body>
+
+    <script src="https://3d.connect.trimble.com/trimbleconnect.workspace.api.js"></script>
+    <script src="./scripts/app105.js"></script>
+
+</html>
