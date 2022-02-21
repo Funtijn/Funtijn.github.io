@@ -20,6 +20,46 @@
 </head>
 
 <body class="dx-viewport">
+    <div class="v-test">
+        <div>
+            <h4>Test118</h4>
+        </div>
+        <div>
+            <label for="propName">Property Name: </label>
+            <input type="text" id="propNameFilter" placeholder="Enter property name"
+                   value="Default.MERKPREFIX" onkeypress="getObjectsByProp(event)">
+        </div>
+        <div>
+            <label for="propValue">Property Value: </label>
+            <div>
+                <input type="text" id="propValueFilter" placeholder="Enter property value"
+                       value="PS" onkeypress="getObjectsByProp(event)">
+            </div>
+        </div>
+        <div>
+            <button onclick="setObjectsByProp()">Set selection</button>
+            <button onclick="setObjectsByProp2()">Set selection2</button>
+        </div>
+        <div>
+            <input type="text" readonly id="txtInfo" placeholder="Info" />
+        </div>
+        <div>
+            <div id="objectsLoading">Loading...</div>
+            <div id="objectsResult">Result</div>
+        </div>
+        <div>
+            <button onclick="addTextMarkups()">Add markups</button>
+            <div id="errorText"></div>
+        </div>
+        <div>
+            <button onclick="setText()">Set text</button>
+            <div id="testTextSet"></div>
+        </div>
+        <div>
+            <button onclick="getTime()">Get time</button>
+            <div id="timeText"></div>
+        </div>
+    </div>
     <div class="demo-container">
         <div class="form">
             <div class="v-title"><h1>Selectiefilter</h1></div>

@@ -184,7 +184,7 @@ $(function () {
         text: "Plaats labels van geselecteerde",
         type: "success",
         onClick: function () {
-            addTextMarkups();
+            //addTextMarkups();
         },
     });
 });
