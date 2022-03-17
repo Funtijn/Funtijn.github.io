@@ -111,6 +111,50 @@ var filterTypeSelectBox = $('#filterTypeSelection').dxSelectBox({
     },
 });
 
+const odooUsernameTextbox = $('#placeholderOdooUsername').dxTextBox({
+    placeholder: 'Geef je Odoo gebruikersnaam op, bvb John Smith => jsmith',
+});
+
+const odooPasswordTextbox = $('#placeholderOdooPassword').dxTextBox({
+    placeholder: 'Geef je Odoo paswoord op',
+});
+
+$(function () {
+    $("#button3").dxButton({
+        stylingMode: "outlined",
+        text: "Kleur volgens status",
+        type: "success",
+        onClick: async function () {
+            $.ajax({
+                type: "POST",
+                url: 'https://192.168.1.183:443/api/authenticate',
+                data: {
+                    db: 'uat_20220202',
+                    login: 'mhemeryck',
+                    password: 'ypSRA63r',
+                },
+                success: function (data) {
+                    var text = data.token;
+                    DevExpress.ui.notify(text);
+                }
+            });
+            //await fetchAsync();
+        },
+    });
+});
+
+async function fetchAsync() {
+    let response = await fetch("https://192.168.1.183:443/api/authenticate", {
+        method: 'POST',
+        db: 'uat_20220202',
+        login: 'mhemeryck',
+        password: ''
+    });
+    let data = await response.json();
+    DevExpress.ui.notify(data.token);
+    return data;
+}
+
 const assemblyTextBox = $('#placeholder').dxTextBox({
     placeholder: 'Geef een merk op, bvb K10 ...',
 });
