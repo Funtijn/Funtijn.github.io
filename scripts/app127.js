@@ -14,7 +14,7 @@ $(function () {
         onClick: async function () {
             $.ajax({
                 type: "POST",
-                url: 'https://192.168.1.183:443/api/authenticate',
+                url: 'https://192.168.1.183/api/authenticate',
                 data: {
                     db: 'uat_20220202',
                     login: 'mhemeryck',
@@ -25,6 +25,7 @@ $(function () {
                     DevExpress.ui.notify(text);
                 }
             });
+            //test
             //await fetchAsync();
         },
     });
@@ -33,8 +34,7 @@ $(function () {
 function auth() {
     $.ajax({
         type: "POST",
-        url: 'https://192.168.1.183:443/api/authenticate',
-        dataType: 'jsonp',
+        url: 'https://192.168.1.183/api/authenticate',
         data: {
             db: 'uat_20220202',
             login: 'mhemeryck',
