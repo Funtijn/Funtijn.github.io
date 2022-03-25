@@ -205,7 +205,7 @@ $(function () {
             DevExpress.ui.notify(allObjects.length);
             await API.viewer.setObjectState(allObjects, { color: { r: 255, g: 155, b: 15 } });
 
-            var demouldedObjects = await API.viewer.getObjects(parameter: { properties: { "GUID": guidsDemouldedElements } });
+            var demouldedObjects = await API.viewer.getObjects({ parameter: { properties: { "GUID": guidsDemouldedElements } } });
 
             
 
