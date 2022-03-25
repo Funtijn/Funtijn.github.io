@@ -205,7 +205,7 @@ $(function () {
             DevExpress.ui.notify(allObjects.length);
             await API.viewer.setObjectState(allObjects, { color: { r: 255, g: 0, b: 0 } });
 
-            var demouldedObjects = [];
+            var demouldedObjectIds = [];
             for (const mobjects of mobjectsArr) {
                 const objectsIds = mobjects.objects.map(o => o.id);
                 const objPropertiesArr = await API.viewer.getObjectProperties(mobjects.modelId, objectsIds);
@@ -217,7 +217,7 @@ $(function () {
                             if (typeof propertyName !== "undefined" && typeof propertyValue !== "undefined") {
                                 if (propertyName === "GUID") {
                                     if (guidsDemouldedElements.includes(propertyValue)) {
-                                        demouldedObjects.push(mobjects.modelId)
+                                        demouldedObjectIds.push(mobjects.modelId)
                                     }
                                 }
                             }
@@ -226,10 +226,10 @@ $(function () {
                 }
             }
 
-            var demouldedObjects = await API.viewer.getObjects({ modelObjectIds: demouldedObjects });
-            if (demouldedObjects[0].length > 0) {
-                await API.viewer.setObjectState(demouldedObjects[0], { color: { r: 0, g: 155, b: 0 } });
-                DevExpress.ui.notify(demouldedObjects[0].length);
+            var demouldedObjects = await API.viewer.getObjects({ modelObjectIds: demouldedObjectIds });
+            if (demouldedObjects.length > 0) {
+                await API.viewer.setObjectState(demouldedObjects, { color: { r: 0, g: 155, b: 0 } });
+                DevExpress.ui.notify(demouldedObjects.length);
             }
 
             //await fetchAsync();
