@@ -209,8 +209,6 @@ $(function () {
             await API.viewer.setObjectState(demouldedObjects, { color: { r: 0, g: 155, b: 0 } });
             DevExpress.ui.notify(demouldedObjects.length);
 
-            
-
             //await fetchAsync();
         },
     });
