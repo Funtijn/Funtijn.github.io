@@ -233,7 +233,8 @@ $(function () {
                     demouldedObjects.push(demouldedObj);
                 }
             }
-            debugInfo = debugInfo.concat("<br />Colored allObjects red");
+
+            debugInfo = debugInfo.concat("<br />demouldedObjects length: " + demouldedObjects.length);
             $(debug).html(debugInfo); 
             
             if (demouldedObjects.length > 0) {
