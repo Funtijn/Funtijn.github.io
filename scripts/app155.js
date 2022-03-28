@@ -224,28 +224,28 @@ $(function () {
 
             //Find specific objects with GUID
             //var demouldedObjectIds = [];
-            try {
-                var demouldedObjects1 = await API.viewer.getObjects({ parameter: { properties: { ["GUID"]: guidsDemouldedElements } } });
-                debugInfo = debugInfo.concat("<br />demouldedObjects1 count: " + demouldedObjects1.length);
-                $(debug).html(debugInfo);
-                debugInfo = debugInfo.concat("<br />demouldedObjects1[0].objects count: " + demouldedObjects1[0].objects.length);
-                $(debug).html(debugInfo); 
-            }
-            catch
-            {
+            //try {
+            //    var demouldedObjects1 = await API.viewer.getObjects({ parameter: { properties: { ["GUID"]: guidsDemouldedElements } } });
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects1 count: " + demouldedObjects1.length);
+            //    $(debug).html(debugInfo);
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects1[0].objects count: " + demouldedObjects1[0].objects.length);
+            //    $(debug).html(debugInfo); 
+            //}
+            //catch
+            //{
 
-            }
-            try {
-                var demouldedObjects1b = await API.viewer.getObjects({ parameter: { properties: { ["GUID"]: guidsDemouldedElements } } });
-                debugInfo = debugInfo.concat("<br />demouldedObjects1b count: " + demouldedObjects1b.length);
-                $(debug).html(debugInfo);
-                debugInfo = debugInfo.concat("<br />demouldedObjects1b[0].objects count: " + demouldedObjects1b[0].objects.length);
-                $(debug).html(debugInfo);
-            }
-            catch
-            {
+            //}
+            //try {
+            //    var demouldedObjects1b = await API.viewer.getObjects({ parameter: { properties: { ["GUID"]: guidsDemouldedElements } } });
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects1b count: " + demouldedObjects1b.length);
+            //    $(debug).html(debugInfo);
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects1b[0].objects count: " + demouldedObjects1b[0].objects.length);
+            //    $(debug).html(debugInfo);
+            //}
+            //catch
+            //{
 
-            }
+            //}
             try {
                 var demouldedObjects2 = await API.viewer.getObjects({ properties: { "GUID": guidsDemouldedElements } });
                 debugInfo = debugInfo.concat("<br />demouldedObjects2 count: " + demouldedObjects2.length);
@@ -258,7 +258,7 @@ $(function () {
 
             }
             try {
-                var demouldedObjects3 = await API.viewer.getObjects({ parameter: { properties: { ["Default.GUID"]: guidsDemouldedElements } } });
+                var demouldedObjects3 = await API.viewer.getObjects({ parameter: { properties: { ["Default.GUID"]: "b56b8bec-a988-4bae-aebf-af3247cdcf57" } } });
                 debugInfo = debugInfo.concat("<br />demouldedObjects3 count: " + demouldedObjects3.length);
                 $(debug).html(debugInfo);
                 debugInfo = debugInfo.concat("<br />demouldedObjects3[0].objects count: " + demouldedObjects3[0].objects.length);
@@ -268,19 +268,30 @@ $(function () {
             {
 
             }
-            try {
-                var demouldedObjects4 = await API.viewer.getObjects({ properties: { "Default.GUID": guidsDemouldedElements } });
-                debugInfo = debugInfo.concat("<br />demouldedObjects4 count: " + demouldedObjects4.length);
-                $(debug).html(debugInfo);
-                debugInfo = debugInfo.concat("<br />demouldedObjects4[0].objects count: " + demouldedObjects4[0].objects.length);
-                $(debug).html(debugInfo);
-            }
-            catch
-            {
+            //try {
+            //    var demouldedObjects3 = await API.viewer.getObjects({ parameter: { properties: { ["Default.GUID"]: guidsDemouldedElements } } });
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects3 count: " + demouldedObjects3.length);
+            //    $(debug).html(debugInfo);
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects3[0].objects count: " + demouldedObjects3[0].objects.length);
+            //    $(debug).html(debugInfo);
+            //}
+            //catch
+            //{
 
-            }
+            //}
+            //try {
+            //    var demouldedObjects4 = await API.viewer.getObjects({ properties: { "Default.GUID": guidsDemouldedElements } });
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects4 count: " + demouldedObjects4.length);
+            //    $(debug).html(debugInfo);
+            //    debugInfo = debugInfo.concat("<br />demouldedObjects4[0].objects count: " + demouldedObjects4[0].objects.length);
+            //    $(debug).html(debugInfo);
+            //}
+            //catch
+            //{
+
+            //}
             try {
-                var demouldedObjects5 = await API.viewer.getObjects({ properties: { "Default.GUID": guidsDemouldedElements } });
+                var demouldedObjects5 = await API.viewer.getObjects({ properties: { "Default.GUID": "b56b8bec-a988-4bae-aebf-af3247cdcf57" } });
                 debugInfo = debugInfo.concat("<br />demouldedObjects5 count: " + demouldedObjects5.length);
                 $(debug).html(debugInfo);
                 debugInfo = debugInfo.concat("<br />demouldedObjects5[0].objects count: " + demouldedObjects5[0].objects.length);
