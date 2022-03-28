@@ -207,8 +207,7 @@ $(function () {
                             }
                         }
                     }
-
-                    debugInfo = debugInfo.concat("<br />Records iterated: " + i + " - val: " + guidsDemouldedElements[i]);
+                    debugInfo = debugInfo.concat("<br />Records iterated: " + i);
                     $(debug).html(debugInfo); 
                 }
             });
