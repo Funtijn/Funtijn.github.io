@@ -230,7 +230,11 @@ $(function () {
                 debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
                 $(debug).html(debugInfo); 
                 var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
+                debugInfo = debugInfo.concat("<br />objectsWithPropAllModels length: " + objectsWithPropAllModels.length);
+                $(debug).html(debugInfo); 
                 for (const objectsWithPropPerModels of objectsWithPropAllModels) {
+                    debugInfo = debugInfo.concat("<br />objectsWithPropPerModels.objects length: " + objectsWithPropPerModels.objects.length);
+                    $(debug).html(debugInfo); 
                     const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
                     await API.viewer.setObjectState({ modelObjectIds: objectsIds }, { color: { r: 0, g: 155, b: 0 } });
                 }
