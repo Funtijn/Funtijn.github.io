@@ -230,7 +230,7 @@ $(function () {
             for (const guidDemouldedElement of guidsDemouldedElements) {
                 debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
                 $(debug).html(debugInfo); 
-                var demouldedObjects = await API.viewer.getObjects({ parameter: { properties: { ["Default.GUID"]: guidDemouldedElement } } });
+                var demouldedObjects = await API.viewer.getObjects({ parameter: { properties: { "Default.GUID": guidDemouldedElement } } });
                 for (const demouldedObject of demouldedObjects) {
                     debugInfo = debugInfo.concat("<br />type of j: " + typeof demouldedObject);
                     debugInfo = debugInfo.concat("<br />j: " + demouldedObject);
