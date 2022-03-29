@@ -228,23 +228,23 @@ $(function () {
 
             setObjectSelectionByPropnameAndValue("Default.MERKPREFIX", "PS", "set"); //werkt maar traag => time out en een eindje later effectief geselecteerd
 
-            for (const guidDemouldedElement of guidsDemouldedElements) {
-                debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
-                $(debug).html(debugInfo); 
-                var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
-                for (const objectsWithPropPerModels of objectsWithPropAllModels) {
-                    debugInfo = debugInfo.concat("<br />objectsWithPropPerModels.objects length: " + objectsWithPropPerModels.objects.length);
-                    const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
-                    debugInfo = debugInfo.concat("<br />objectsIds length: " + objectsIds.length);
-                    debugInfo = debugInfo.concat("<br />objectsIds[0]: " + objectsIds[0]);
-                    $(debug).html(debugInfo);
-                    setObjectsByPropnameAndValue("Default.GUID", guidDemouldedElement, "add");
-                    await API.viewer.setObjectState(
-                        { modelObjectIds: [{ modelId: objectsWithPropPerModels.modelId, objectRuntimeIds: objectsIds }] },
-                        { color: { r: 0, g: 155, b: 0 } }
-                    );
-                }
-            }
+            //for (const guidDemouldedElement of guidsDemouldedElements) {
+            //    debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
+            //    $(debug).html(debugInfo); 
+            //    var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
+            //    for (const objectsWithPropPerModels of objectsWithPropAllModels) {
+            //        debugInfo = debugInfo.concat("<br />objectsWithPropPerModels.objects length: " + objectsWithPropPerModels.objects.length);
+            //        const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
+            //        debugInfo = debugInfo.concat("<br />objectsIds length: " + objectsIds.length);
+            //        debugInfo = debugInfo.concat("<br />objectsIds[0]: " + objectsIds[0]);
+            //        $(debug).html(debugInfo);
+            //        setObjectsByPropnameAndValue("Default.GUID", guidDemouldedElement, "add");
+            //        await API.viewer.setObjectState(
+            //            { modelObjectIds: [{ modelId: objectsWithPropPerModels.modelId, objectRuntimeIds: objectsIds }] },
+            //            { color: { r: 0, g: 155, b: 0 } }
+            //        );
+            //    }
+            //}
 
             debugInfo = debugInfo.concat("<br />END ");
             $(debug).html(debugInfo); 
