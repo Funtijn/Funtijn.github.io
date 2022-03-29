@@ -226,7 +226,6 @@ $(function () {
             debugInfo = debugInfo.concat("<br />Colored allObjects red");
             $(debug).html(debugInfo); 
 
-            var demouldedObjectIds = [];
             for (const guidDemouldedElement of guidsDemouldedElements) {
                 debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
                 $(debug).html(debugInfo); 
@@ -236,11 +235,6 @@ $(function () {
                     await API.viewer.setObjectState({ modelObjectIds: objectsIds }, { color: { r: 0, g: 155, b: 0 } });
                 }
             }
-
-            debugInfo = debugInfo.concat("<br />demouldedObjects length: " + demouldedObjectIds.length);
-            $(debug).html(debugInfo); 
-            
-            
 
             debugInfo = debugInfo.concat("<br />END ");
             $(debug).html(debugInfo); 
