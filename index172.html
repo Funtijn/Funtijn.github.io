@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <Title>Test172</Title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <!-- ... -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>window.jQuery || document.write(decodeURIComponent('%3Cscript src="js/jquery.min.js"%3E%3C/script%3E'))</script>
+
+    <!-- DevExtreme theme -->
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.common.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.2.5/css/dx.dark.compact.css" />
+    <link rel="stylesheet" type="text/css" href="./css/test129.css">
+    <!-- DevExtreme library -->
+    <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.5/js/dx.all.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.4/js/dx.web.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.2.4/js/dx.viz.js"></script> -->
+    <!--<script crossorigin src="https://cdn.rawgit.com/caldwell/renderjson/master/renderjson.js"></script>-->
+</head>
+
+<body class="dx-viewport">
+    <div>
+        <!--class="v-test"-->
+        <div>
+            <h4>Test172</h4>
+        </div>
+        <div>
+            <label for="propName">Property Name: </label>
+            <input type="text" id="propNameFilter" placeholder="Enter property name"
+                   value="Default.MERKPREFIX" onkeypress="getObjectsByProp(event)">
+        </div>
+        <div>
+            <label for="propValue">Property Value: </label>
+            <div>
+                <input type="text" id="propValueFilter" placeholder="Enter property value"
+                       value="PS" onkeypress="getObjectsByProp(event)">
+            </div>
+        </div>
+        <div>
+            <button onclick="setObjectsByProp()">Set selection</button>
+            <button onclick="setObjectsByProp2()">Set selection2</button>
+        </div>
+        <div>
+            <input type="text" readonly id="txtInfo" placeholder="Info" />
+        </div>
+        <div>
+            <div id="objectsLoading">Loading...</div>
+            <div id="objectsResult">Result</div>
+        </div>
+        <div>
+            <button onclick="addTextMarkups()">Add markups</button>
+            <div id="errorText"></div>
+        </div>
+        <div>
+            <button onclick="setText()">Set text</button>
+            <div id="testTextSet"></div>
+        </div>
+        <div>
+            <button onclick="getTime()">Get time</button>
+            <div id="timeText"></div>
+        </div>
+        <div>
+            <div id="debug">DebugInfo...</div>
+        </div>
+    </div>
+    <div class="demo-container">
+        <div class="form">
+            <div class="v-title"><h1>Odoo login gegevens</h1></div>
+            <div>
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="v-field-value">
+                            <div id="placeholderOdooUsername"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dx-fieldset">
+                    <div class="dx-field">
+                        <div class="v-field-value">
+                            <div id="placeholderOdooPassword"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dx-fieldset">
+                <div id="button3"></div>
+            </div>
+            <div class="v-title"><h1>Selectiefilter</h1></div>
+            <div class="v-grp">
+                <div id="filterTypeSelectGrp">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="v-field-label">Type filter:</div>
+                            <div class="v-field-value">
+                                <div id="filterTypeSelection"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-filterGrp" id="prefixSelectionGrp">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="v-field-label">Selecteer prefixen:</div>
+                            <div class="v-field-value">
+                                <div id="prefixSelection"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-filterGrp" id="assemblyInputGrp">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="v-field-label">Geef een merk op:</div>
+                            <div class="v-field-value">
+                                <div id="placeholder"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-filterGrp" id="manualInputGrp">
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="v-field-label">Geef een property name op:</div>
+                            <div class="v-field-value">
+                                <div id="placeholderPropertyName"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dx-fieldset">
+                        <div class="dx-field">
+                            <div class="v-field-label">Geef een property value op:</div>
+                            <div class="v-field-value">
+                                <div id="placeholderPropertyValue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dx-fieldset">
+                    <div id="button"></div>
+                </div>
+            </div>
+            <div class="v-title"><h1>Labels plaatsen</h1></div>
+            <div class="v-grp">
+                <div class="dx-fieldset">
+                    <div id="button2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="https://3d.connect.trimble.com/trimbleconnect.workspace.api.js"></script>
+<script src="./scripts/app172.js"></script>
+</html>
