@@ -1238,11 +1238,10 @@
       const selected = v.filter(s => !!s);
       for (const s of selected) {
         const [modelId, objectRuntimeId] = s.split(" | ");
-        await API.viewer.setObjectState({
-          modelObjectIds: [{ modelId, objectRuntimeIds: [parseInt(objectRuntimeId, 10)] }]
-        }, {
-          color: { r: 0, g: 0, b: 0 }
-        });
+		  await API.viewer.setObjectState(
+			  { modelObjectIds: [{ modelId, objectRuntimeIds: [parseInt(objectRuntimeId, 10)] }] },
+			  { color: { r: 0, g: 0, b: 0 } }
+		  );
       }
     }
 
