@@ -322,6 +322,43 @@ $(function () {
 });
 
 $(function () {
+    $("#testBtn6").dxButton({
+        stylingMode: "outlined",
+        text: "Selection test",
+        type: "success",
+        onClick: async function () {
+            var debugInfo = "";
+
+            var compressedIfcGuids = [];
+            for (var guidFull of guidsDemouldedElements) {
+                compressedIfcGuids.push(Guid.fromFullToCompressed(guidFull));
+            }
+
+            for (var compressedIfcGuid of compressedIfcGuids) {
+                debugInfo = debugInfo.concat("<br />" + compressedIfcGuid);
+            }
+            $(debug).html(debugInfo);
+
+            const mobjectsArr = await API.viewer.getObjects();
+            SetText(mobjectsArr.length);
+            for (const mobjects of mobjectsArr) {
+                var modelId = mobjects.modelId;
+                debugInfo = debugInfo.concat("<br /> modelId" + modelId);
+
+                var runtimeIds = convertToObjectRuntimeIds(modelId, compressedIfcGuids);
+
+                await API.viewer.setSelection(
+                    { modelObjectIds: [{ modelId, objectRuntimeIds: runtimeIds }] }, true
+                );
+            }
+
+            debugInfo = debugInfo.concat("<br /> Einde groen test 2 ");
+            $(debug).html(debugInfo);
+        },
+    });
+});
+
+$(function () {
     $("#testBtn10").dxButton({
         stylingMode: "outlined",
         text: "Test GUID conversion",
