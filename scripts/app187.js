@@ -302,43 +302,13 @@ $(function () {
             //haalt enkel gemeenschappelijk hebben property sets op
             for (const mobjects of mobjectsArr) {
                 var modelId = mobjects.modelId;
-                //mobjects type: ModelObjects met mobjects.objects type: ObjectProperties[]
-                const objectsIds = mobjects.objects.map(o => o.id);
-                //const objectsRuntimeIds = await API.viewer.convertToObjectRuntimeIds(mobjects.modelId, objectsIds);
-                const objPropertiesArr = await API.viewer.getObjectProperties(mobjects.modelId, objectsIds);
-                for (const objproperties of objPropertiesArr) {
-                    //objproperties type: ObjectProperties
-                    let cogX = 0.0;
-                    let cogY = 0.0;
-                    let cogZ = 0.0;
-                    let assemblyPos = "";
-                    let propertiesFound = 0;
-                    for (const propertyset of objproperties.properties) {
-                        for (const property of propertyset.properties) {
-                            const propertyName = property.name;
-                            const propertyValue = property.value;
-                            if (typeof propertyName !== "undefined" && typeof propertyValue !== "undefined") {
-                                if (propertyName === "COG_X") {
-                                    cogX = propertyValue;
-                                    propertiesFound++;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
 
-            for (const guidDemouldedElement of guidsDemouldedElements) {
-                var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
-                for (const objectsWithPropPerModels of objectsWithPropAllModels) {
-                    const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
-                    setObjectsByPropnameAndValue("Default.GUID", guidDemouldedElement, "add");
-                    var modelId = objectsWithPropPerModels.modelId;
-                    await API.viewer.setObjectState(
-                        { modelObjectIds: [{ modelId, objectRuntimeIds: objectsIds }] },
-                        { color: { r: 0, g: 255, b: 0 } }
-                    );
-                }
+                var runtimeIds = convertToObjectRuntimeIds(modelId, compressedIfcs);
+
+                await API.viewer.setObjectState(
+                    { modelObjectIds: [{ modelId, objectRuntimeIds: runtimeIds }] },
+                    { color: { r: 0, g: 255, b: 0 } }
+                );
             }
 
             debugInfo = debugInfo.concat("<br /> Einde groen test 2 ");
