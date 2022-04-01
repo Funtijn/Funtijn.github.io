@@ -1,17 +1,8 @@
-
-let API = null;
+var API = null;
 
 window.onload = async function () {
     API = await Workspace.connect(window.parent, (event, data) => {
-        //console.log("Event: ", event, data);
-        //var eventName = event.split(".").pop();
-
-        //switch (eventName) {
-        //    case "onPicked":
-        //        OnPicked(data.data);
-        //        break;
-        //}
-
+        console.log("Event: ", event, data);
     });
 }
 
@@ -74,13 +65,6 @@ const prefixes = [
     'WANDREGE',
 ];
 
-const statuses = [
-    'Gepland',
-    'In productie',
-    'Klaar voor transport',
-    'Getransporteerd',
-];
-
 const filterTypes = [
     'Prefix',
     'Merk',
@@ -116,6 +100,7 @@ const odooUsernameTextbox = $('#placeholderOdooUsername').dxTextBox({
 });
 
 const odooPasswordTextbox = $('#placeholderOdooPassword').dxTextBox({
+    mode: 'password',
     placeholder: 'Geef je Odoo paswoord op',
 });
 
@@ -154,24 +139,30 @@ var guidsAvailableForTransport = [];
 var colorAvailableForTransport = { r: 173, g: 216, b: 230 };
 var guidsTransported = [];
 var colorTransported = { r: 0, g: 255, b: 127 };
+
 $(function () {
-    $("#testBtn1").dxButton({
+    $("#setColorFromStatus").dxButton({
         stylingMode: "outlined",
-        text: "Gegevens inladen",
+        text: "Kleur elementen volgens status",
         type: "success",
         onClick: async function () {
-            var debugInfo = "";
+            var username = odooUsernameTextbox.dxCheckBox("instance").option("value");
+            var password = odooPasswordTextbox.dxCheckBox("instance").option("value");
+            if (typeof username !== 'string' || typeof password !== 'string') {
+
+            }
+            //var debugInfo = "";
             //Get project name
             var regexProjectName = /^[TV]\d+_\w+/;
             var project = await API.project.getProject(); //{ name: "V8597_VDL" }; //
-            debugInfo = debugInfo.concat("<br />Project name: " + project.name);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />Project name: " + project.name);
+            //$(debug).html(debugInfo);
             if (!regexProjectName.test(project.name))
                 return;
             var projectNumber = project.name.split("_")[0];
 
-            debugInfo = debugInfo.concat("<br />Project number: " + projectNumber);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />Project number: " + projectNumber);
+            //$(debug).html(debugInfo);
 
             //Authenticate with MUK API
             var token = "";
@@ -180,14 +171,14 @@ $(function () {
                 url: 'https://192.168.1.183/api/authenticate',
                 data: {
                     db: 'uat_20220202',
-                    login: 'mhemeryck',
-                    password: 'ypSRA63r',
+                    login: username,
+                    password: password,
                 },
                 success: function (data) {
                     token = data.token;
 
-                    debugInfo = debugInfo.concat("<br />Authenticated with token: " + token);
-                    $(debug).html(debugInfo);
+                    //debugInfo = debugInfo.concat("<br />Authenticated with token: " + token);
+                    //$(debug).html(debugInfo);
                 }
             });
 
@@ -205,20 +196,20 @@ $(function () {
                 success: function (data) {
                     id = data[0].id;
 
-                    debugInfo = debugInfo.concat("<br />Project id: " + id);
-                    $(debug).html(debugInfo);
+                    //debugInfo = debugInfo.concat("<br />Project id: " + id);
+                    //$(debug).html(debugInfo);
                 }
             });
 
             var referenceDate = new Date();
             var referenceToday = checkBoxToday.dxCheckBox("instance").option("value");
-            debugInfo = debugInfo.concat("<br />referenceToday: " + referenceToday);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />referenceToday: " + referenceToday);
+            //$(debug).html(debugInfo);
             if (!Boolean(referenceToday)) {
                 referenceDate = new Date(referenceDatePicker.dxDateBox("instance").option("value"));
             }
-            debugInfo = debugInfo.concat("<br />referenceDate: " + referenceDate);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />referenceDate: " + referenceDate);
+            //$(debug).html(debugInfo);
             var ended = 0;
             var lastId = -1;
             guidsDemoulded = [];
@@ -233,9 +224,7 @@ $(function () {
                         fields: '["id", "name", "date_drawn", "date_fab_planned", "date_fab_dem", "date_fab_end", "date_transported", "state", "mark_available"]',
                     },
                     success: function (data) {
-                        var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-                        //var ids = "";
-                        var i = -1;
+                        //var i = -1;
                         if (data.length == 0) {
                             ended = 1;
                             return;
@@ -267,243 +256,70 @@ $(function () {
                                 guidsDrawn.push(record.name);
                             }
                         }
-                        debugInfo = debugInfo.concat("<br />Records iterated: " + i);
-                        $(debug).html(debugInfo);
+                        //debugInfo = debugInfo.concat("<br />Records iterated: " + i);
+                        //$(debug).html(debugInfo);
                     }
                 });
             }
-            debugInfo = debugInfo.concat("<br />guidsOnHold.length: " + guidsOnHold.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsTransported.length: " + guidsTransported.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsAvailableForTransport.length: " + guidsAvailableForTransport.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsProductionEnded.length: " + guidsProductionEnded.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsDemoulded.length: " + guidsDemoulded.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsPlanned.length: " + guidsPlanned.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />guidsDrawn.length: " + guidsDrawn.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsOnHold.length: " + guidsOnHold.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsTransported.length: " + guidsTransported.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsAvailableForTransport.length: " + guidsAvailableForTransport.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsProductionEnded.length: " + guidsProductionEnded.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsDemoulded.length: " + guidsDemoulded.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsPlanned.length: " + guidsPlanned.length);
+            //$(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />guidsDrawn.length: " + guidsDrawn.length);
+            //$(debug).html(debugInfo);
 
-            debugInfo = debugInfo.concat("<br />END ");
-            $(debug).html(debugInfo); 
-        },
-    });
-});
-
-var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-function GetDateFromString(s) {
-    var date = null;
-    var resultDate = s.match(regexDate);
-    if (resultDate != null) {
-        var splitDate = resultDate[0].split("-");
-        var year = splitDate[0];
-        var month = splitDate[1];
-        var day = splitDate[2];
-        date = new Date(year, month - 1, day);
-    }
-    return date;
-}
-
-$(function () {
-    $("#testBtn2").dxButton({
-        stylingMode: "outlined",
-        text: "Print guids in guidArray",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-
-            for (const i in guidsDemoulded) {//for of vs for in!
-                debugInfo = debugInfo.concat("<br />GUID_ENDED_ELE: " + i + " - val: " + guidsDemoulded[i]);
-                $(debug).html(debugInfo);
-            }
-            debugInfo = debugInfo.concat("<br />END ");
-            $(debug).html(debugInfo);
-        },
-    });
-});
-
-$(function () {
-    $("#testBtn3").dxButton({
-        stylingMode: "outlined",
-        text: "Alles grijs kleuren",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-
-            //Hier nog IFCELEMENTASSEMBLY filteren als class ipv alle elementen (=assemblies + parts)
-            //var allObjects = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
-            var allObjects = await API.viewer.getObjects({ parameter: { class: "IFCELEMENTASSEMBLY" } });
-
-            debugInfo = debugInfo.concat("<br />All objects count: " + allObjects.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />All objects[0].objects count: " + allObjects[0].objects.length);
-            $(debug).html(debugInfo);
-            await API.viewer.setObjectState(allObjects, { color: { r: 220, g: 220, b: 220 } });
-            debugInfo = debugInfo.concat("<br />Colored allObjects gray");
-            $(debug).html(debugInfo); 
-        },
-    });
-});
-
-$(function () {
-    $("#testBtn4").dxButton({
-        stylingMode: "outlined",
-        text: "Groen test 1",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-
-            for (const guidDemouldedElement of guidsDemoulded) {
-                var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
-                for (const objectsWithPropPerModels of objectsWithPropAllModels) {
-                    const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
-                    setObjectsByPropnameAndValue("Default.GUID", guidDemouldedElement, "add");
-                    var modelId = objectsWithPropPerModels.modelId;
-                    await API.viewer.setObjectState(
-                        { modelObjectIds: [{ modelId, objectRuntimeIds: objectsIds }] },
-                        { color: { r: 0, g: 255, b: 0 } }
-                    );
-                }
-            }
-
-            debugInfo = debugInfo.concat("<br /> Einde groen test 1 ");
-            $(debug).html(debugInfo);
-        },
-    });
-});
-
-$(function () {
-    $("#testBtn5").dxButton({
-        stylingMode: "outlined",
-        text: "Groen test 2",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-
-            var compressedIfcGuids = [];
-            for (var guidFull of guidsDemoulded) {
-                compressedIfcGuids.push(Guid.fromFullToCompressed(guidFull));
-            }
-
-            for (var compressedIfcGuid of compressedIfcGuids) {
-                debugInfo = debugInfo.concat("<br />" + compressedIfcGuid);
-            }
-            $(debug).html(debugInfo);
-
-            const mobjectsArr = await API.viewer.getObjects();
-            SetText(mobjectsArr.length);
-            for (const mobjects of mobjectsArr) {
-                var modelId = mobjects.modelId;
-                debugInfo = debugInfo.concat("<br /> modelId" + modelId);
-
-                var runtimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuids);
-
-                await API.viewer.setObjectState(
-                    { modelObjectIds: [{ modelId, objectRuntimeIds: runtimeIds }] },
-                    { color: { r: 0, g: 255, b: 0 } }
-                );
-            }
-
-            debugInfo = debugInfo.concat("<br /> Einde groen test 2 ");
-            $(debug).html(debugInfo);
-        },
-    });
-});
-
-$(function () {
-    $("#testBtn6").dxButton({
-        stylingMode: "outlined",
-        text: "Selection test",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-
-            var compressedIfcGuids = [];
-            for (var guidFull of guidsDemoulded) {
-                compressedIfcGuids.push(Guid.fromFullToCompressed(guidFull));
-            }
-
-            for (var compressedIfcGuid of compressedIfcGuids) {
-                debugInfo = debugInfo.concat("<br /> compressedIfcGuid: " + compressedIfcGuid);
-            }
-            $(debug).html(debugInfo);
-
-            const mobjectsArr = await API.viewer.getObjects();
-            for (const mobjects of mobjectsArr) {
-                var modelId = mobjects.modelId;
-                debugInfo = debugInfo.concat("<br /> modelId" + modelId);
-                $(debug).html(debugInfo);
-
-                var runtimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuids);
-
-                for (var runtimeId of runtimeIds) {
-                    debugInfo = debugInfo.concat("<br /> runtimeId: " + runtimeId);
-                }
-                $(debug).html(debugInfo);
-
-                await API.viewer.setSelection(
-                    { modelObjectIds: [{ modelId, objectRuntimeIds: runtimeIds }] }, "set"
-                );
-            }
-
-            debugInfo = debugInfo.concat("<br /> Einde groen test 2 ");
-            $(debug).html(debugInfo);
-        },
-    });
-});
-
-$(function () {
-    $("#testBtn7").dxButton({
-        stylingMode: "outlined",
-        text: "Alles kleuren",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
+            //debugInfo = debugInfo.concat("<br />END ");
+            //$(debug).html(debugInfo); 
 
             var compressedIfcGuidsOnHold = [];
             for (var guidFull of guidsOnHold) {
                 compressedIfcGuidsOnHold.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsOnHold.length" + compressedIfcGuidsOnHold.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsOnHold.length" + compressedIfcGuidsOnHold.length);
+            //$(debug).html(debugInfo);
 
             var compressedIfcGuidsDrawn = [];
             for (var guidFull of guidsDrawn) {
                 compressedIfcGuidsDrawn.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsDrawn.length" + compressedIfcGuidsDrawn.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsDrawn.length" + compressedIfcGuidsDrawn.length);
+            //$(debug).html(debugInfo);
 
             var compressedIfcGuidsDemoulded = [];
             for (var guidFull of guidsDemoulded) {
                 compressedIfcGuidsDemoulded.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsDemoulded.length" + compressedIfcGuidsDemoulded.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsDemoulded.length" + compressedIfcGuidsDemoulded.length);
+            //$(debug).html(debugInfo);
 
             var compressedIfcGuidsProductionEnded = [];
             for (var guidFull of guidsProductionEnded) {
                 compressedIfcGuidsProductionEnded.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsProductionEnded.length" + compressedIfcGuidsProductionEnded.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsProductionEnded.length" + compressedIfcGuidsProductionEnded.length);
+            //$(debug).html(debugInfo);
 
             var compressedIfcGuidsAvailableForTransport = [];
             for (var guidFull of guidsAvailableForTransport) {
                 compressedIfcGuidsAvailableForTransport.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsAvailableForTransport.length" + compressedIfcGuidsAvailableForTransport.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsAvailableForTransport.length" + compressedIfcGuidsAvailableForTransport.length);
+            //$(debug).html(debugInfo);
 
             var compressedIfcGuidsTransported = [];
             for (var guidFull of guidsTransported) {
                 compressedIfcGuidsTransported.push(Guid.fromFullToCompressed(guidFull));
             }
-            debugInfo = debugInfo.concat("<br /> compressedIfcGuidsTransported.length" + compressedIfcGuidsTransported.length);
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br /> compressedIfcGuidsTransported.length" + compressedIfcGuidsTransported.length);
+            //$(debug).html(debugInfo);
 
             const mobjectsArr = await API.viewer.getObjects({ parameter: { class: "IFCELEMENTASSEMBLY" } });
 
@@ -527,28 +343,28 @@ $(function () {
                 const unplannedRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, unplannedIfcIds);
 
                 var onHoldRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsOnHold);
-                debugInfo = debugInfo.concat("<br /> onHoldRuntimeIds.length" + onHoldRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> onHoldRuntimeIds.length" + onHoldRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
                 var drawnRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsDrawn);
-                debugInfo = debugInfo.concat("<br /> drawnRuntimeIds.length" + drawnRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> drawnRuntimeIds.length" + drawnRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
                 var demouldedRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsDemoulded);
-                debugInfo = debugInfo.concat("<br /> demouldedRuntimeIds.length" + demouldedRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> demouldedRuntimeIds.length" + demouldedRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
                 var productionEndedRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsProductionEnded);
-                debugInfo = debugInfo.concat("<br /> productionEndedRuntimeIds.length" + productionEndedRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> productionEndedRuntimeIds.length" + productionEndedRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
                 var availableForTransportRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsAvailableForTransport);
-                debugInfo = debugInfo.concat("<br /> availableForTransportRuntimeIds.length" + availableForTransportRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> availableForTransportRuntimeIds.length" + availableForTransportRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
                 var guidsTransportedRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsTransported);
-                debugInfo = debugInfo.concat("<br /> guidsTransportedRuntimeIds.length" + guidsTransportedRuntimeIds.length);
-                $(debug).html(debugInfo);
+                //debugInfo = debugInfo.concat("<br /> guidsTransportedRuntimeIds.length" + guidsTransportedRuntimeIds.length);
+                //$(debug).html(debugInfo);
 
 
                 await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: unplannedRuntimeIds }] }, { color: colorModeled });
@@ -560,171 +376,24 @@ $(function () {
                 await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: guidsTransportedRuntimeIds }] }, { color: colorTransported });
             }
 
-            debugInfo = debugInfo.concat("<br />Colored according to status");
-            $(debug).html(debugInfo);
+            //debugInfo = debugInfo.concat("<br />Colored according to status");
+            //$(debug).html(debugInfo);
         },
     });
 });
 
-$(function () {
-    $("#testBtn10").dxButton({
-        stylingMode: "outlined",
-        text: "Test GUID conversion",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-            var guidFull = "6142c1fc-736c-46ab-b5f1-969fccf3f7a6";
-            debugInfo = debugInfo.concat("<br /> guid transformed: " + Guid.fromFullToCompressed(guidFull));
-            $(debug).html(debugInfo);
-        },
-    });
-});
-
-$(function () {
-    $("#button3").dxButton({
-        stylingMode: "outlined",
-        text: "Kleur volgens status",
-        type: "success",
-        onClick: async function () {
-            var debugInfo = "";
-            //Get project name
-            var regexProjectName = /^[TV]\d+_\w+/;
-            var project = await API.project.getProject();
-            debugInfo = debugInfo.concat("<br />Project name: " + project.name);
-            $(debug).html(debugInfo); 
-            if (!regexProjectName.test(project.name))
-                return;
-            var projectNumber = project.name.split("_")[0];
-
-            debugInfo = debugInfo.concat("<br />Project number: " + projectNumber);
-            $(debug).html(debugInfo);
-
-            //Authenticate with MUK API
-            var token = "";
-            await $.ajax({
-                type: "POST",
-                url: 'https://192.168.1.183/api/authenticate',
-                data: {
-                    db: 'uat_20220202',
-                    login: 'mhemeryck',
-                    password: 'ypSRA63r',
-                },
-                success: function (data) {
-                    token = data.token;
-
-                    debugInfo = debugInfo.concat("<br />Authenticated with token: " + token);
-                    $(debug).html(debugInfo); 
-                }
-            });
-
-            //Get project ID
-            var id = -1;
-            await $.ajax({
-                type: "GET",
-                url: "https://192.168.1.183/api/read",
-                data: {
-                    token: token,
-                    model: "project.project",
-                    domain: '[["proj_unique_id", "=", "' + projectNumber + '"]]',
-                    fields: '["id", "proj_unique_id"]',
-                },
-                success: function (data) {
-                    id = data[0].id;
-
-                    debugInfo = debugInfo.concat("<br />Project id: " + id);
-                    $(debug).html(debugInfo); 
-                }
-            });
-
-            var guidsDemouldedElements = [];
-            await $.ajax({
-                type: "GET",
-                url: "https://192.168.1.183/api/read",
-                data: {
-                    token: token,
-                    model: "trimble.connect.main",
-                    domain: '[["project_id.id", "=", "' + id + '"]]',
-                    fields: '["id", "name", "date_fab_end"]',
-                },
-                success: function (data) {
-                    var now = Date.now();
-                    var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-                    //var ids = "";
-                    var i = -1;
-                    for (const record of data) {
-                        i++;
-                        var dateStrDemoulded = record.date_fab_end;
-                        if (typeof dateStrDemoulded !== 'string')
-                            continue;
-                        var resultDateDemouled = dateStrDemoulded.match(regexDate);
-                        if (resultDateDemouled != null) {
-                            var splitDate = resultDateDemouled[0].split("-");
-                            var year = splitDate[0];
-                            var month = splitDate[1];
-                            var day = splitDate[2];
-                            var dateDemoulded = new Date(year, month, day);
-                            if (dateDemoulded < now) {
-                                guidsDemouldedElements.push(record.name);
-                            }
-                        }
-                    }
-                    debugInfo = debugInfo.concat("<br />Records iterated: " + i);
-                    $(debug).html(debugInfo); 
-                }
-            });
-
-            for (const i in guidsDemouldedElements) {//for of vs for in!
-                debugInfo = debugInfo.concat("<br />GUID_ENDED_ELE: " + i + " - val: " + guidsDemouldedElements[i]);
-                $(debug).html(debugInfo); 
-            }
-
-            var allObjects = await API.viewer.getObjects();
-            debugInfo = debugInfo.concat("<br />All objects count: " + allObjects.length);
-            $(debug).html(debugInfo);
-            debugInfo = debugInfo.concat("<br />All objects[0].objects count: " + allObjects[0].objects.length);
-            $(debug).html(debugInfo);
-            await API.viewer.setObjectState(allObjects, { color: { r: 255, g: 0, b: 0 } });
-            debugInfo = debugInfo.concat("<br />Colored allObjects red");
-            $(debug).html(debugInfo); 
-
-            //setObjectSelectionByPropnameAndValue("Default.GUID", guidsDemouldedElements, "set"); //werkt maar traag => time out en een eindje later effectief geselecteerd
-            //setObjectSelectionByPropnameAndValue("Default.MERKPREFIX", "PS", "set"); //werkt 'sneller' => array als value parameter (bv. array van GUIDS) is niet praktisch te gebruiken
-
-            for (const guidDemouldedElement of guidsDemouldedElements) {
-                debugInfo = debugInfo.concat("<br />guid demoulded element: " + guidDemouldedElement);
-                $(debug).html(debugInfo); 
-                var objectsWithPropAllModels = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.GUID", guidDemouldedElement));
-                for (const objectsWithPropPerModels of objectsWithPropAllModels) {
-                    debugInfo = debugInfo.concat("<br />objectsWithPropPerModels.objects length: " + objectsWithPropPerModels.objects.length);
-                    const objectsIds = objectsWithPropPerModels.objects.map(o => o.id);
-                    debugInfo = debugInfo.concat("<br />objectsIds length: " + objectsIds.length);
-                    debugInfo = debugInfo.concat("<br />objectsIds[0]: " + objectsIds[0]);
-                    $(debug).html(debugInfo);
-                    setObjectsByPropnameAndValue("Default.GUID", guidDemouldedElement, "add");
-                    var modelId = objectsWithPropPerModels.modelId;
-                    await API.viewer.setObjectState(
-                        { modelObjectIds: [{ modelId, objectRuntimeIds: objectsIds }] },
-                        { color: { r: 0, g: 255, b: 0 } }
-                    );
-                }
-            }
-
-            debugInfo = debugInfo.concat("<br />END ");
-            $(debug).html(debugInfo); 
-        },
-    });
-});
-
-async function fetchAsync() {
-    let response = await fetch("https://192.168.1.183:443/api/authenticate", {
-        method: 'POST',
-        db: 'uat_20220202',
-        login: 'mhemeryck',
-        password: ''
-    });
-    let data = await response.json();
-    DevExpress.ui.notify(data.token);
-    return data;
+var regexDate = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+function GetDateFromString(s) {
+    var date = null;
+    var resultDate = s.match(regexDate);
+    if (resultDate != null) {
+        var splitDate = resultDate[0].split("-");
+        var year = splitDate[0];
+        var month = splitDate[1];
+        var day = splitDate[2];
+        date = new Date(year, month - 1, day);
+    }
+    return date;
 }
 
 const assemblyTextBox = $('#placeholder').dxTextBox({
@@ -780,25 +449,6 @@ function SetSelectionByFilter()
     }
 }
 
-//$(function () {
-//    $("#button2").dxButton({
-//        stylingMode: "outlined",
-//        text: "Plaats labels van geselecteerde",
-//        type: "success",
-//        onClick: function () {
-//            $.ajax({
-//                url: 'https://reqbin.com/echo/get/json',
-//                dataType: 'json',
-//                async: false,
-//                success: function (data) {
-//                    var text = data.success;
-//                    DevExpress.ui.notify(text);
-//                }
-//            });
-//        },
-//    });
-//});
-
 $(function () {
     $("#button2").dxButton({
         stylingMode: "outlined",
@@ -809,19 +459,6 @@ $(function () {
         },
     });
 });
-
-var time = "TheTime";
-function getTime() {
-    $.ajax({
-        url: "https://reqbin.com/echo/get/json",
-        dataType: 'json',
-        async: false,
-        success: function (data) {
-            time = data.success;
-        }
-    });
-    $(timeText).html(time);
-}
 
 function SetText(text)
 {
@@ -925,9 +562,9 @@ function getPropSelectorByPropnameAndValue(propNameFilter, propValueFilter) {
 
 async function addTextMarkups() {
     try {
-        SetText2("Start adding markups");
+        //SetText2("Start adding markups");
         let jsonArray = "[";
-        SetText2(jsonArray);
+        //SetText2(jsonArray);
         //const propSelector = getPropSelector();
         //await API.viewer.setSelection(propSelector, "set");
         //const mobjectsArr = await API.viewer.getObjects(propSelector);
@@ -937,7 +574,7 @@ async function addTextMarkups() {
             modelObjectIds: selection
         };
         const mobjectsArr = await API.viewer.getObjects(selector);
-        SetText(mobjectsArr.length);
+        //SetText(mobjectsArr.length);
         //mobjectsArr type: ModelObjects[]
         //haalt enkel gemeenschappelijk hebben property sets op
         for (const mobjects of mobjectsArr) {
@@ -1026,17 +663,17 @@ async function addTextMarkups() {
                 jsonArray = jsonArray.concat(",");
             }
         }
-        SetText2("Finished going through array");
+        //SetText2("Finished going through array");
         jsonArray = jsonArray = jsonArray.slice(0, -1);
         jsonArray = jsonArray.concat("]");
         API.markup.removeMarkups();
-        SetText2(jsonArray);
+        //SetText2(jsonArray);
         API.markup.addTextMarkup(JSON.parse(jsonArray));
     }
     catch (e) {
-        SetErrorText("Error");
-        SetErrorText(e.message);
-        SetText2(jsonArray);
+        //SetErrorText("Error");
+        //SetErrorText(e.message);
+        //SetText2(jsonArray);
     }
 }
 
