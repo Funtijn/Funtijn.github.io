@@ -82,3 +82,7 @@ body .dx-popup-content .custom-item {
     background-color: rgba(135, 90, 123, 0.15);
     padding: 15px;
 }
+
+v-indicator {
+    display: none;
+}
