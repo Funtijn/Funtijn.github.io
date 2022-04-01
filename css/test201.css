@@ -83,6 +83,10 @@ body .dx-popup-content .custom-item {
     padding: 15px;
 }
 
-v-indicator {
+.v-legend {
     display: none;
+}
+
+.v-legendLine {
+    color: black;
 }
