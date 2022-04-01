@@ -47,6 +47,12 @@ body .dx-popup-content .custom-item {
     width: 100%;
 }
 
+.v-field-value-date{
+    float: left;
+    width: 100%;
+    display: none;
+}
+
 .v-filterGrp {
     display: none;
 }
