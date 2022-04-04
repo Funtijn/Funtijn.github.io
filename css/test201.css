@@ -10,12 +10,6 @@
     margin-top: 2px;
 }
 
-.custom-item > div.product-name {
-    margin-left: 40px;
-    line-height: 34px;
-    font-size: 14px;
-}
-
 body .custom-item input {
     background-color: transparent;
 }
@@ -38,16 +32,43 @@ body .dx-popup-content .custom-item {
     font-size: 16px;
     text-align: left;
     float: left;
-    width: 100%;
-    padding: 0 15px 9px 0;
+    width: 210px;
+    padding: 0 10px 10px 0;
+}
+
+.v-field-label2 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 16px;
+    text-align: left;
+    float: left;
+    width: 200px;
+    padding: 0 10px 10px 0;
+    margin-left: 10px;
 }
 
 .v-field-value {
+    float: right;
+    width: calc(100% - 210px);
+}
+
+.v-field-value2 {
+    float: left;
+    width: calc(100% - 225px);
+}
+
+.v-field-value-full-width {
+    float: left;
+    width: calc(100% - 10px);
+    margin: 5px;
+}
+
+.v-odoo-input {
     float: left;
     width: 100%;
 }
 
-.v-field-value-date{
+.v-field-grp-date {
     float: left;
     width: 100%;
     display: none;
@@ -63,24 +84,28 @@ body .dx-popup-content .custom-item {
 
 .v-title h1{
     font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
-    font-weight: 200;
+    font-weight: bold;
     font-size: 20px;
     text-align: left;
+    margin: 0px;
+    width: 100%;
+    float: left;
+    margin: 5px 0 5px 0;
 }
 
 .v-selection {
     background-color: rgba(191, 191, 191, 0.15);
-    padding: 15px;
+    padding: 5px 0 1px 10px;
 }
 
 .v-labels {
     background-color: rgba(255, 255, 0, 0.15);
-    padding: 15px;
+    padding: 5px 0 1px 10px;
 }
 
 .v-odooData {
     background-color: rgba(135, 90, 123, 0.15);
-    padding: 15px;
+    padding: 5px 0 1px 10px;
 }
 
 .v-legend {
@@ -89,4 +114,5 @@ body .dx-popup-content .custom-item {
 
 .v-legendLine {
     color: black;
+    padding: 2px;
 }
