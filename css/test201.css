@@ -78,10 +78,6 @@ body .dx-popup-content .custom-item {
     display: none;
 }
 
-.v-test {
-    display: none;
-}
-
 .v-title h1{
     font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
     font-weight: bold;
@@ -110,9 +106,17 @@ body .dx-popup-content .custom-item {
 
 .v-legend {
     display: none;
+    width: 100%;
 }
 
 .v-legendLine {
     color: black;
     padding: 2px;
+}
+
+.v-refDate {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 16px;
+    padding: 0 10px 10px 10px;
 }

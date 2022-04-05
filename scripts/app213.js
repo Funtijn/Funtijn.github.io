@@ -104,12 +104,12 @@ var filterTypeSelectBox = $('#filterTypeSelection').dxSelectBox({
 });
 
 var odooUsernameTextbox = $('#placeholderOdooUsername').dxTextBox({
-    placeholder: 'Geef je Odoo gebruikersnaam op, bvb John Smith => jsmith',
+    placeholder: 'Vul Odoo gebruikersnaam in, bvb Mattias Hemeryck wordt mhemeryck',
 });
 
 var odooPasswordTextbox = $('#placeholderOdooPassword').dxTextBox({
     mode: 'password',
-    placeholder: 'Geef je Odoo paswoord op',
+    placeholder: 'Vul Odoo paswoord in',
 });
 
 var checkBoxToday = $('#checked').dxCheckBox({
@@ -217,7 +217,7 @@ async function getToken() {
 $(function () {
     $("#setColorFromStatus").dxButton({
         stylingMode: "outlined",
-        text: "Kleur elementen volgens status",
+        text: "Kleur elementen volgens planningsstatus",
         type: "success",
         template(data, container) {
             $(`<div class='button-indicator'></div><span class='dx-button-text'>${data.text}</span>`).appendTo(container);
@@ -429,7 +429,7 @@ $(function () {
                 DevExpress.ui.notify(e);
             }
             buttonIndicator.option('visible', false);
-            data.component.option('text', 'Kleur elementen volgens status');
+            data.component.option('text', 'Kleur elementen volgens planningsstatus');
         },
     });
 });
@@ -657,7 +657,7 @@ const prefixSelectionTagBox = $('#prefixSelection').dxTagBox({
 $(function () {
     $("#button").dxButton({
         stylingMode: "outlined",
-        text: "Selecteer o.b.v. filter",
+        text: "Selecteer o.b.v. gekozen filter",
         type: "success",
         onClick: function (data) {
             data.component.option('text', 'Bezig met elementen te selecteren');
@@ -669,7 +669,7 @@ $(function () {
                 DevExpress.ui.notify(e);
             }
             buttonIndicator.option('visible', false);
-            data.component.option('text', 'Selecteer o.b.v. filter');
+            data.component.option('text', 'Selecteer o.b.v. gekozen filter');
         },
     });
 });
