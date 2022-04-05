@@ -124,6 +124,7 @@ var checkBoxToday = $('#checked').dxCheckBox({
 });
 
 var referenceDatePicker = $('#date').dxDateBox({
+    calendarOptions: { firstDayOfWeek: 1 },
     type: 'date',
     label: "dag/maand/jaar",
     displayFormat: 'dd/MM/yyyy',

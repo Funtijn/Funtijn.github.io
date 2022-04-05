@@ -32,7 +32,7 @@ body .dx-popup-content .custom-item {
     font-size: 16px;
     text-align: left;
     float: left;
-    width: 210px;
+    width: 150px;
     padding: 0 10px 10px 0;
 }
 
@@ -42,19 +42,19 @@ body .dx-popup-content .custom-item {
     font-size: 16px;
     text-align: left;
     float: left;
-    width: 200px;
+    width: 140px;
     padding: 0 10px 10px 0;
     margin-left: 10px;
 }
 
 .v-field-value {
     float: right;
-    width: calc(100% - 210px);
+    width: calc(100% - 150px);
 }
 
 .v-field-value2 {
     float: left;
-    width: calc(100% - 225px);
+    width: calc(100% - 165px);
 }
 
 .v-field-value-full-width {
