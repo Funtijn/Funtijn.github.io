@@ -1,4 +1,6 @@
 var API = null;
+var odooURL = "https://192.168.1.183";
+var odooDatabase = "uat_20220202"
 
 window.onload = async function () {
     API = await Workspace.connect(window.parent, (event, data) => {
@@ -151,6 +153,67 @@ function getColorString(color) {
     return "rgb(" + color.r + ", " + color.g + ", " + color.b + ")";
 }
 
+var token = "";
+async function getToken() {
+    if (token !== "") {
+        var refresh = false;
+        await $.ajax({
+            type: "GET",
+            url: odooURL + "/api/life",
+            data: {
+                token: token,
+            },
+            success: function (lifetime) {
+                //console.log("Token lifetime: " + lifetime); //lifetime in seconds
+                if (lifetime < 60) {
+                    refresh = true;
+                }
+            },
+        });
+
+        if (refresh) {
+            var refreshSuccesful = false;
+            await $.ajax({
+                type: "POST",
+                url: odooURL + "/api/refresh",
+                data: {
+                    token: token,
+                },
+                success: function () {
+                    refreshSuccesful = true;
+                },
+            });
+            if (!refreshSuccesful) {
+                token = "";
+            }
+        }
+    }
+
+    if (token === "") {
+        var username = odooUsernameTextbox.dxTextBox("instance").option("value");
+        var password = odooPasswordTextbox.dxTextBox("instance").option("value");
+        if (typeof username !== 'string' || typeof password !== 'string' || username === "" || password === "") {
+            console.log("no username and/or password found");
+            throw "Gelieve gebruikersnaam en/of paswoord in te vullen.";
+        }
+        await $.ajax({
+            type: "POST",
+            url: odooURL + "/api/authenticate",
+            data: {
+                db: odooDatabase,
+                login: username,
+                password: password,
+            },
+            success: function (data) {
+                
+                token = data.token;
+            }
+        });
+    }
+    return token;
+}
+
+
 $(function () {
     $("#setColorFromStatus").dxButton({
         stylingMode: "outlined",
@@ -174,17 +237,11 @@ $(function () {
             document.getElementById("legendAvailableForTransport").style.backgroundColor = getColorString(colorAvailableForTransport);
             document.getElementById("legendTransported").style.backgroundColor = getColorString(colorTransported);
             try {
-                var username = odooUsernameTextbox.dxTextBox("instance").option("value");
-                var password = odooPasswordTextbox.dxTextBox("instance").option("value");
-                if (typeof username !== 'string' || typeof password !== 'string' || username === "" || password === "") {
-                    console.log("no username and/or password found");
-                    throw "Gelieve gebruikersnaam en/of paswoord in te vullen.";
-                }
 
                 //var debugInfo = "";
                 //Get project name
                 var regexProjectName = /^[TV]\d+_\w+/;
-                var project = await API.project.getProject(); //{ name: "V8597_VDL" };  
+                var project = { name: "V8597_VDL" };  //await API.project.getProject(); 
                 //debugInfo = debugInfo.concat("<br />Project name: " + project.name);
                 //$(debug).html(debugInfo);
                 if (!regexProjectName.test(project.name))
@@ -195,28 +252,13 @@ $(function () {
                 //$(debug).html(debugInfo);
 
                 //Authenticate with MUK API
-                var token = "";
-                await $.ajax({
-                    type: "POST",
-                    url: 'https://192.168.1.183/api/authenticate',
-                    data: {
-                        db: 'uat_20220202',
-                        login: username,
-                        password: password,
-                    },
-                    success: function (data) {
-                        token = data.token;
-
-                        //debugInfo = debugInfo.concat("<br />Authenticated with token: " + token);
-                        //$(debug).html(debugInfo);
-                    }
-                });
+                var token = await getToken();
 
                 //Get project ID
                 var id = -1;
                 await $.ajax({
                     type: "GET",
-                    url: "https://192.168.1.183/api/read",
+                    url: odooURL + "/api/read",
                     data: {
                         token: token,
                         model: "project.project",
@@ -250,7 +292,7 @@ $(function () {
                 while (ended != 1) {
                     await $.ajax({
                         type: "GET",
-                        url: "https://192.168.1.183/api/read",
+                        url: odooURL + "/api/read",
                         data: {
                             token: token,
                             model: "trimble.connect.main",
@@ -399,7 +441,7 @@ function selectionChanged(data) {
 $(function () {
     $("#setOdooLabels").dxButton({
         stylingMode: "outlined",
-        text: "Plaats labels met Merk.Serienummer",
+        text: "Plaats labels 'Merk.Serienummer' van geselecteerde",
         type: "success",
         template(data, container) {
             $(`<div class='button-indicator'></div><span class='dx-button-text'>${data.text}</span>`).appendTo(container);
@@ -422,9 +464,9 @@ $(function () {
                 var token = "";
                 await $.ajax({
                     type: "POST",
-                    url: 'https://192.168.1.183/api/authenticate',
+                    url: odooURL + "/api/authenticate",
                     data: {
-                        db: 'uat_20220202',
+                        db: odooDatabase,
                         login: username,
                         password: password,
                     },
@@ -481,7 +523,7 @@ $(function () {
                         var assemblyPos = "";
                         await $.ajax({
                             type: "GET",
-                            url: "https://192.168.1.183/api/read",
+                            url: odooURL + "/api/read",
                             data: {
                                 token: token,
                                 model: "trimble.connect.main",
@@ -502,7 +544,7 @@ $(function () {
 
                         await $.ajax({
                             type: "GET",
-                            url: "https://192.168.1.183/api/read",
+                            url: odooURL + "/api/read",
                             data: {
                                 token: token,
                                 model: "project.master_marks",
@@ -572,7 +614,7 @@ $(function () {
                 DevExpress.ui.notify(e);
             }
             buttonIndicator.option('visible', false);
-            data.component.option('text', 'Plaats labels met Merk.Serienummer');
+            data.component.option('text', "Plaats labels 'Merk.Serienummer' van geselecteerde");
         },
     });
 });
@@ -656,7 +698,7 @@ function SetSelectionByFilter()
 $(function () {
     $("#button2").dxButton({
         stylingMode: "outlined",
-        text: "Plaats labels van geselecteerde",
+        text: "Plaats labels 'Merk' van geselecteerde",
         type: "success",
         onClick: function (data) {
             data.component.option('text', 'Bezig met labels plaatsen');
@@ -669,7 +711,7 @@ $(function () {
                 DevExpress.ui.notify(e);
             }
             buttonIndicator.option('visible', false);
-            data.component.option('text', 'Plaats labels van geselecteerde');
+            data.component.option('text', "Plaats labels 'Merk' van geselecteerde");
         },
     });
 });
