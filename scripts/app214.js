@@ -704,13 +704,22 @@ $(function () {
             buttonIndicator.option('visible', true);
             buttonIndicator.option('visible', true);
             try {
+                console.log("start");
                 const mobjectsArr = await API.viewer.getObjects(getPropSelectorByPropnameAndValue("Default.MERKPREFIX", "ZZZ"));
+                console.log("mobjectsArr.length: " + mobjectsArr.length);
                 for (const mobjects of mobjectsArr) {
-                    await API.viewer.setLayersVisibility(mobjects.modelId, { name: 'Grid 0.0', visible: true });
-                    var runtimeIds = [];
-                    const objectsIds = mobjects.objects.map(o => o.id);
                     var modelId = mobjects.modelId;
                     console.log(modelId);
+                    var layers = API.viewer.getLayers(modelId);
+                    for (const layer of layers) {
+                        if (layer.name === "Grid 0.0") {
+                            console.log("layer 'Grid 0.0' found");
+                            layer.visible = true;
+                            await API.viewer.setLayersVisibility(modelId, layer);
+                        }
+                    }
+                    var runtimeIds = [];
+                    const objectsIds = mobjects.objects.map(o => o.id);
                     const objPropertiesArr = await API.viewer.getObjectProperties(modelId, objectsIds);
                     for (const objproperties of objPropertiesArr) {
                         for (const propertyset of objproperties.properties) {
@@ -728,6 +737,7 @@ $(function () {
                     }
                     await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: runtimeIds }] }, { visible: true });
                 }
+                console.log("end");
             }
             catch (e) {
                 DevExpress.ui.notify(e);
