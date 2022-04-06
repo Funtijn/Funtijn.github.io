@@ -700,7 +700,7 @@ $(function () {
         text: "Toon stramien en montagepijlen",
         type: "success",
         onClick: async function (data) {
-            data.component.option('text', 'Bezig met labels plaatsen');
+            data.component.option('text', 'Bezig met stramien en montagepijlen te zoeken');
             buttonIndicator.option('visible', true);
             buttonIndicator.option('visible', true);
             try {
@@ -710,6 +710,7 @@ $(function () {
                     var runtimeIds = [];
                     const objectsIds = mobjects.objects.map(o => o.id);
                     var modelId = mobjects.modelId;
+                    console.log(modelId);
                     const objPropertiesArr = await API.viewer.getObjectProperties(modelId, objectsIds);
                     for (const objproperties of objPropertiesArr) {
                         for (const propertyset of objproperties.properties) {
@@ -718,6 +719,7 @@ $(function () {
                                 const propertyValue = property.value;
                                 if (typeof propertyName !== "undefined" && typeof propertyValue !== "undefined") {
                                     if (propertyName === "PROFIEL" && propertyValue.startsWith("PIJL")) {
+                                        console.log(propertyset.id);
                                         runtimeIds.push(propertyset.id);
                                     }
                                 }
