@@ -133,7 +133,7 @@ var referenceDatePicker = $('#date').dxDateBox({
     value: Date.now(),
 });
 
-var colorModeled = { r: 211, g: 211, b: 211 };
+var colorModelled = { r: 211, g: 211, b: 211 };
 var guidsOnHold = [];
 var colorOnHold = { r: 255, g: 0, b: 0 };
 var guidsDrawn = [];
@@ -228,6 +228,7 @@ $(function () {
             data.component.option('text', 'Bezig met inkleuren volgens status');
             buttonIndicator.option('visible', true);
             document.getElementById("legend").style.display = 'block';
+            document.getElementById("legendModelled").style.backgroundColor = getColorString(colorModelled);
             document.getElementById("legendOnHold").style.backgroundColor = getColorString(colorOnHold);
             document.getElementById("legendDrawn").style.backgroundColor = getColorString(colorDrawn);
             document.getElementById("legendPlanned").style.backgroundColor = getColorString(colorPlanned);
@@ -411,7 +412,7 @@ $(function () {
                     var availableForTransportRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsAvailableForTransport);
                     var guidsTransportedRuntimeIds = await API.viewer.convertToObjectRuntimeIds(modelId, compressedIfcGuidsTransported);
 
-                    await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: unplannedRuntimeIds }] }, { color: colorModeled });
+                    await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: unplannedRuntimeIds }] }, { color: colorModelled });
                     await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: onHoldRuntimeIds }] }, { color: colorOnHold });
                     await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: plannedRuntimeIds }] }, { color: colorPlanned });
                     await API.viewer.setObjectState({ modelObjectIds: [{ modelId, objectRuntimeIds: drawnRuntimeIds }] }, { color: colorDrawn });
